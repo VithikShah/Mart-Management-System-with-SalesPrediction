@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h3>Enter employee details</h3>
+<form action='/add_employee' method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+  </div>
+    <div class="form-group">
+    <label for="uname">Username</label>
+    <input type="text" class="form-control" name="uname" id="uname" aria-describedby="emailHelp" placeholder="Enter Username">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password</label>
+    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter Password">
+  </div>
+  <input type="submit" class="btn btn-primary">
+</form>
+ {% endblock %}

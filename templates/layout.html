@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mart</title>
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<style>
+table {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;  
+  background: $background-color;
+  color: $text-color;
+  border-radius: $border-radius;
+  border: $outer-border;
+}
+tr {
+  border: $cell-border;   
+}
+th {
+  border: $header-border;
+  text-align: center;
+  background-color: $header-background-color;
+  color: $header-text-color;
+  padding: 1em;  
+}
+td {
+  word-wrap: break-word;
+  max-width: 7em;
+  text-align: center;
+}
+</style>
+</head>
+  <body>
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Machine Mart</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="{{ url_for('index') }}">Inventory</a></li>
+        {% if session.get('empid')  and session['manager'] == True %}
+      <li><a href="{{ url_for('manager_add_item') }}">Add to Inventory</a></li>
+      <li><a href="{{ url_for('employee_add') }}">Add Employee</a></li>
+      <li><a href="{{ url_for('predict') }}">Predict Sales</a></li>
+      <li><a href="{{ url_for('add_items') }}">Add New Items</a></li>
+          <li><a href="{{ url_for('sales') }}">Sales</a></li>
+      {% endif %}
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if msg %}
+    <div class="alert alert-danger" role="alert">{{ msg }}</div></p> 
+{% endif %}
+    <div class="container">
+<table id="items_table" class="table table-striped table-bordered" cellspacing="0">
+            <thead>
+                <th scope="col">ITEM ID</th>
+                <th scope="col">ITEM Name</th>
+                <th scope="col">ITEM Quantity</th>
+                <th scope="col">EDIT</th>
+                <th scope="col">ADD</th>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item['ItemID'] }}</td>
+                        <td>{{ item_names[item['ItemID']] }}</td>
+                        <td>{{ item['Units'] }}</td>
+                        <td>
+                            <button name="button" type="button" class="btn btn-success" value= "edit" data-toggle="modal" data-target="#edit_{{ item['ItemID'] }}" >Sales</button>
+                            <br>
+                                <div id="edit_{{ item['ItemID'] }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="trans_message" aria-hidden="true">
+                                <form action="{{ url_for('index') }}" method="POST">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body"><input name="item_quantity" placeholder="{{ item['Units'] }}"></div>
+                                            <div class="modal-footer">
+                                                <input type="number" name="item_id" 
+                                                 value="{{ item['ItemID'] }}" hidden aria-hidden="true">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Record Sale</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <button name="button" type="button" class="btn btn-success" value= "add" data-toggle="modal" data-target="#add_{{ item['ItemID'] }}" >Add Quantity</button>
+                            <br>
+                                <div id="add_{{ item['ItemID'] }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="trans_message" aria-hidden="true">
+                                <form action="{{ url_for('add') }}" method="POST">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body"><input name="item_quantity" placeholder="{{ item['Units'] }}"></div>
+                                            <div class="modal-footer">
+                                                <input type="number" name="item_id" 
+                                                 value="{{ item['ItemID'] }}" hidden aria-hidden="true">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Add quantity</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready( function () {
+    $('#items_table').DataTable();
+} );
+    </script>
+ {% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if msg %}
+    <div class="alert alert-danger" role="alert">{{ msg }}</div></p> 
+{% endif %}
+    <div class="container">
+        <table id="items_table" class="table table-striped table-bordered" cellspacing="0">
+            <thead>
+                <th scope="col">ITEM ID</th>
+                <th scope="col">ITEM Name</th>
+                <th scope="col">ITEM Cost</th>
+                <th scope="col">ADD Item To Your Shop</th>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item['ItemID'] }}</td>
+                        <td>{{ item['Name'] }}</td>
+                        <td>{{ item['Cost'] }}</td>
+                        <td>
+                            <button name="button" type="button" class="btn btn-success" value= "add" data-toggle="modal" data-target="#add_{{ item['ItemID'] }}" >Add Item To Shop</button>
+                            <br>
+                                <div id="add_{{ item['ItemID'] }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="trans_message" aria-hidden="true">
+                                <form action="{{ url_for('manager_add_item') }}" method="POST">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body"><input name="item_quantity" placeholder="{{ item['ItemID'] }}"></div>
+                                            <div class="modal-footer">
+                                                <input type="number" name="item_id" 
+                                                 value="{{ item['ItemID'] }}" hidden aria-hidden="true">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Add Item To Shop</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+     <script>
+        $(document).ready( function () {
+    $('#items_table').DataTable();
+} );
+    </script>
+ {% endblock %}

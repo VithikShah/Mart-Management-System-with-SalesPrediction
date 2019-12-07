@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+	<img src="static/images/foo.png" style="display:block; margin-left:auto;margin-right:auto;width:70%">
+	
+	{% for table in tables %}
+            {{ table|safe }}
+    {% endfor %}
+
+ {% endblock %}
